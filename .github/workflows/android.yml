@@ -11,31 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      # Шаг 1: Получаем ваш код из репозитория
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      # Шаг 2: Настраиваем Java для Gradle
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
+          # Включаем кэширование зависимостей Gradle для ускорения сборок
+          cache: 'gradle'
 
-      - name: Install Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Accept Android SDK Licenses
-        run: yes | sdkmanager --licenses
-
-      - name: Install Gradle (apt)
-        run: sudo apt-get update && sudo apt-get install -y gradle
-
+      # Шаг 3: Выполняем команду сборки с помощью Gradle Wrapper
       - name: Build Debug APK
-        env:
-          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
-        run: gradle :app:assembleDebug
+        run: ./gradlew assembleDebug
 
+      # Шаг 4: Загружаем готовый APK-файл как артефакт
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
