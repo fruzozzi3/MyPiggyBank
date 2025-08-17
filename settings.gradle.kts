@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "MyPiggyBank"
+rootProject.name = "kopil"
 include(":app")
