@@ -3,7 +3,6 @@ package com.example.mypiggybank
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -107,7 +106,7 @@ fun MainScreen(vm: SavingsViewModel) {
                         Text(df.format(Date(dep.timestamp)))
                     }
                 )
-                Divider()
+                HorizontalDivider() // Заменили Divider() на HorizontalDivider()
             }
             item { Spacer(Modifier.height(80.dp)) }
         }
